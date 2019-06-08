@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.CoreAudioApi;
-using NAudio.Mixer;
-using NAudio.Wave;
 
 namespace OutputRegulator
 {
@@ -60,8 +53,6 @@ namespace OutputRegulator
             #region debug
 
 #if DEBUG
-
-
             AllocConsole();
 #endif
 
@@ -216,13 +207,14 @@ namespace OutputRegulator
             _iniSettings.WriteValue("config", "reducePercent", reducePercent.Value.ToString(CultureInfo.InvariantCulture));
             _iniSettings.WriteValue("config", "needInputVolume", needInputVolume.Value.ToString(CultureInfo.InvariantCulture));
             _iniSettings.WriteValue("config", "ticksBeforeDeactivate", ticksBeforeDeactivate.Value.ToString(CultureInfo.InvariantCulture));
-            
+
             // reset outputs to default
             for (var i = 0; i < _outputDevices.Count; i++)
             {
                 SetOutput(_outputDevices.ElementAt(i), 0, i);
             }
         }
+
         private void Form_Resize(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized) return;
